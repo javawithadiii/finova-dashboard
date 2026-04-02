@@ -207,16 +207,7 @@ body{background:var(--bg);color:var(--text);font-family:var(--font);font-size:14
       <button class="hamburger" onclick="toggleSidebar()">☰</button>
       <div id="pageHeadingText"></div>
     </div>
-    <div class="header-actions">
-      <button class="btn admin-only" id="exportBtn" onclick="exportCSV()">
-        <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
-        Export CSV
-      </button>
-      <button class="btn primary admin-only" id="addTxnBtn" onclick="openModal()">
-        <svg width="14" height="14" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
-        Add Transaction
-      </button>
-    </div>
+    <div class="header-actions"></div>
   </div>
 
   <!-- Dashboard View -->
@@ -477,7 +468,11 @@ function switchRole(role){
   document.getElementById('roleText').textContent = role.charAt(0).toUpperCase()+role.slice(1);
   badge.className = 'role-badge '+role;
   document.querySelectorAll('.admin-only').forEach(el=>{
-    el.style.display = role==='admin' ? '' : 'none';
+    if(role==='admin'){
+      el.style.setProperty('display', el.tagName==='TH' ? 'table-cell' : 'inline-flex', 'important');
+    } else {
+      el.style.setProperty('display', 'none', 'important');
+    }
   });
   filterTxns();
 }
