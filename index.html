@@ -819,7 +819,12 @@ function init(){
   renderBarChart();
   populateCategoryFilter();
   filterTxns();
+  // Force admin-only elements visible on load
+  document.querySelectorAll('.admin-only').forEach(el=>{
+    el.style.display='';
+  });
   switchRole('admin');
+}
 }
 
 init();
